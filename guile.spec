@@ -80,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) /usr/bin/*
 %attr(755,root,root) /usr/lib/*.so.*.*
-%attr(644,root,root) /usr/share/guile
+/usr/share/guile
 
 %files devel
 %defattr(644,root,root,755)
