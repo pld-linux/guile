@@ -7,7 +7,7 @@ Summary(ru):	ñÚÙË ÒÁÓÛÉÒÅÎÉÊ GNU
 Summary(uk):	íÏ×Á ÒÏÚÛÉÒÅÎØ GNU
 Name:		guile
 Version:	1.4.1
-Release:	4
+Release:	6
 Epoch:		5
 License:	GPL
 Group:		Development/Languages
@@ -17,6 +17,8 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
 Patch2:		%{name}-SCM_SITE_DIR_path.patch
 Patch3:		%{name}-sizet.patch
+Patch4:		%{name}-axp.patch
+Patch5:		%{name}-GUILE_LIBS.patch
 BuildRequires:	libltdl-devel
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	readline-devel >= 4.2
@@ -134,6 +136,8 @@ Bibliotecas estáticas para desenvolvimento com guile
 # if you convince me... (but remember about perl, python, tcl and ruby ) (filon)
 #%patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 #rm -f missing
