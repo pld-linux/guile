@@ -1,19 +1,12 @@
 Summary:	GNU Extension language
 Summary(pl):	GNU Extension language
 Name:		guile
-Version:	1.4
-Release:	11
+Version:	1.5.6
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Development/Languages
-Source0:	ftp://prep.ai.mit.edu/pub/gnu/guile/%{name}-%{version}.tar.gz
-Patch0:		%{name}-info.pach
-Patch1:		%{name}-fix_awk_patch.patch
-Patch2:		%{name}-std_headers.patch
-Patch3:		%{name}-SCM_SITE_DIR_path.patch
-Patch4:		%{name}-acinclude.m4_fixes.patch
-Patch5:		%{name}-am_fixes.patch
-Patch6:		%{name}-use_system_libltd.aptch
+Source0:	ftp://alpha.gnu.org/pub/gnu/guile/%{name}-%{version}.tar.gz
 BuildRequires:	libltdl-devel
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	readline-devel >= 4.2
@@ -59,31 +52,14 @@ Biblioteka statyczna Guile.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 %build
-rm -f missing
-libtoolize --copy --force
-aclocal -I .
-autoconf
-automake -a -c -f
-(cd guile-readline
-aclocal
-autoconf
-automake -a -c -f)
 %configure \
-	--enable-dynamic-linking
+	--with-threads
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site,%{_libdir}/guile}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -106,17 +82,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/guile
+%attr(755,root,root) %{_bindir}/guile-tools
 %attr(755,root,root) %{_libdir}/*.so.*.*
-%{_libdir}/guile
 %{_datadir}/guile
 
 %files devel
 %defattr(644,root,root,755)
 %doc {AUTHORS,ChangeLog,GUILE-VERSION,HACKING,NEWS,README}.gz
 %attr(755,root,root) %{_bindir}/guile-config
-%attr(755,root,root) %{_bindir}/guile-doc-snarf
-%attr(755,root,root) %{_bindir}/guile-snarf*
-%attr(755,root,root) %{_bindir}/guile-func-name-check
 %attr(755,root,root) %{_libdir}/*.so
 %attr(755,root,root) %{_libdir}/*.la
 %{_infodir}/*info*
