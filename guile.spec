@@ -1,5 +1,5 @@
 Summary:	GNU Extension language
-Summary(pl):	GNU Extension language
+Summary(pl.UTF-8):   GNU Extension language
 Name:		guile
 Version:	1.5.6
 Release:	1
@@ -19,12 +19,12 @@ Guile, a portable, embeddable Scheme implementation written in C.
 Guile provides a machine independent execution platform that can be
 linked in as a library when building extensible programs.
 
-%description -l pl
-Guile jest implementacj± Scheme napisan± w C.
+%description -l pl.UTF-8
+Guile jest implementacjÄ… Scheme napisanÄ… w C.
 
 %package devel
 Summary:	Guile's header files, etc
-Summary(pl):	Pliki nag³ówkowe i dokumentacja Guile
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe i dokumentacja Guile
 Group:		Development/Libraries
 Requires:	m4
 Requires:	%{name} = %{version}
@@ -35,19 +35,19 @@ Obsoletes:	libguile9-devel
 %description devel
 What's needed to develop apps linked w/ guile
 
-%description devel -l pl
-Pliki nag³ówkowe i dokumentacja Guile.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe i dokumentacja Guile.
 
 %package static
 Summary:	Guile static libraries
-Summary(pl):	Biblioteka statyczna Guile
+Summary(pl.UTF-8):   Biblioteka statyczna Guile
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
 Guile static library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteka statyczna Guile.
 
 %prep
