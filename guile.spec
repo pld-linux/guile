@@ -32,7 +32,9 @@ BuildRequires:	gmp-devel >= 4.1
 BuildRequires:	libffi-devel
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool >= 1:1.4.2-9
+BuildRequires:	libunistring-devel
 BuildRequires:	ncurses-devel >= 5.2
+BuildRequires:	pkgconfig(libffi)
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	texinfo
 Requires:	umb-scheme
