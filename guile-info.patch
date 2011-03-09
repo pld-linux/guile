@@ -1,16 +1,3 @@
---- guile-1.6.1/doc/ref/data-rep.texi~	Wed May 15 21:22:11 2002
-+++ guile-1.6.1/doc/ref/data-rep.texi	Wed May 15 21:30:25 2002
-@@ -9,8 +9,8 @@
- 
- @c essay @dircategory The Algorithmic Language Scheme
- @c essay @direntry
--@c essay * data-rep: (data-rep).  Data Representation in Guile --- how to use
--@c essay                 Guile objects in your C code.
-+@c essay * data-rep: (data-rep).			Data Representation in Guile --- how to use
-+@c essay					Guile objects in your C code.
- @c essay @end direntry
- 
- @c essay @setchapternewpage off
 --- guile-1.6.1/doc/ref/guile.texi.orig	Sun May  5 13:31:59 2002
 +++ guile-1.6.1/doc/ref/guile.texi	Tue May 21 22:21:17 2002
 @@ -26,7 +26,7 @@
@@ -22,17 +9,6 @@
  @end direntry
  
  @setchapternewpage off
---- guile-1.6.1/doc/goops/goops.texi.orig	Sat Dec  7 23:41:28 2002
-+++ guile-1.6.1/doc/goops/goops.texi	Tue Dec 24 23:34:06 2002
-@@ -8,7 +8,7 @@
- 
- @dircategory The Algorithmic Language Scheme
- @direntry
--* GOOPS: (goops).               The GOOPS reference manual.
-+* GOOPS: (goops).			The GOOPS reference manual
- @end direntry
- 
- @macro goops
 --- guile-1.6.1/doc/r5rs/r5rs.texi.orig	Sat Dec  7 23:41:29 2002
 +++ guile-1.6.1/doc/r5rs/r5rs.texi	Tue Dec 24 23:34:38 2002
 @@ -66,7 +66,7 @@
@@ -44,14 +20,3 @@
  @end direntry
  @end ifinfo
  
---- guile-1.6.1/doc/tutorial/guile-tut.texi.orig	Sat Dec  7 23:41:30 2002
-+++ guile-1.6.1/doc/tutorial/guile-tut.texi	Tue Dec 24 23:48:06 2002
-@@ -8,7 +8,7 @@
- 
- @dircategory The Algorithmic Language Scheme
- @direntry
--* Guile Tutorial: (guile-tut).  The Guile tutorial.
-+* Guile Tutorial: (guile-tut).		The Guile tutorial
- @end direntry
- 
- @setchapternewpage off

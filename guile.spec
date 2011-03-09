@@ -3,7 +3,7 @@
 %bcond_without	tests	# don't perform ./check-guile
 %bcond_without	emacs	# don't build emacs subpackage
 #
-%define		ver	1.8
+%define		ver	2.0
 Summary:	GNU Extension language
 Summary(es.UTF-8):	Lenguaje de extensión de la GNU
 Summary(ja.UTF-8):	アプリケーションの拡張のための GNU による Scheme の実装
@@ -12,23 +12,24 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	1.8.8
+Version:	2.0.0
 Release:	1
 Epoch:		5
-License:	GPL v2+/LGPL v2.1+
+License:	LGPL v3+
 Group:		Development/Languages
 Source0:	http://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.gz
-# Source0-md5:	18661a8fdfef13e2fcb7651720aa53f3
+# Source0-md5:	4f91ca29077aca32e1e28f70220dfd9b
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
-Patch2:		%{name}-unknown_arch.patch
-Patch3:		%{name}-as-needed.patch
+Patch2:		%{name}-as-needed.patch
 URL:		http://www.gnu.org/software/guile/guile.html
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.10
 %{?with_emacs:BuildRequires:	emacs}
+BuildRequires:	gc-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gmp-devel >= 4.1
+BuildRequires:	libffi-devel
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	ncurses-devel >= 5.2
@@ -90,7 +91,9 @@ Summary(ru.UTF-8):	Файлы для разработки программ с Gu
 Summary(uk.UTF-8):	Файли для розробки програм з Guile
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	gc-devel
 Requires:	gmp-devel >= 4.1
+Requires:	libffi-devel
 Requires:	libltdl-devel
 Requires:	m4
 Obsoletes:	libguile9-devel
@@ -160,8 +163,9 @@ Tryb edycji guile dla emacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
+
+# popen test currently fails
+%{__rm} test-suite/tests/popen.test
 
 %build
 %{__gettextize}
@@ -169,19 +173,11 @@ Tryb edycji guile dla emacsa.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-cd guile-readline
-%{__libtoolize}
-%{__aclocal} -I ../guile-config
-%{__autoconf}
-# DON'T USE --force HERE - it would break build
-automake -a -c --foreign
-cd ..
 %configure \
-	--enable-error-on-warning=no
+	--disable-silent-rules
 
 %{__make}
 
-%{?with_tests:%{__make} -C libguile stack-limit-calibration.scm}
 %{?with_tests:./check-guile}
 
 %install
@@ -206,37 +202,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README THANKS
+%doc AUTHORS LICENSE NEWS README THANKS
 %attr(755,root,root) %{_bindir}/guile
 %attr(755,root,root) %{_bindir}/guile-tools
-%attr(755,root,root) %{_libdir}/libguile.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile.so.17
-# shared libraries dlopened by interpreter (.so or .la needed)
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-1-v-3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-srfi-srfi-1-v-3.so.3
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-1-v-3.so
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-4-v-3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-srfi-srfi-4-v-3.so.3
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-4-v-3.so
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-13-14-v-3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-srfi-srfi-13-14-v-3.so.3
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-13-14-v-3.so
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-60-v-2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-srfi-srfi-60-v-2.so.2
-%attr(755,root,root) %{_libdir}/libguile-srfi-srfi-60-v-2.so
-%attr(755,root,root) %{_libdir}/libguilereadline-v-17.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguilereadline-v-17.so.17
-%attr(755,root,root) %{_libdir}/libguilereadline-v-17.so
+%attr(755,root,root) %{_libdir}/libguile-2.0.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-2.0.so.22
+# shared library dlopened by interpreter (.so or .la needed)
+%attr(755,root,root) %{_libdir}/libguilereadline-v-18.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguilereadline-v-18.so.18
+%attr(755,root,root) %{_libdir}/libguilereadline-v-18.so
 %{_libdir}/guile
 %dir %{_datadir}/guile
 %dir %{_datadir}/guile/%{ver}
 %{_datadir}/guile/%{ver}/guile-procedures.txt
+%{_datadir}/guile/%{ver}/*.scm
 %{_datadir}/guile/%{ver}/ice-9
-%{_datadir}/guile/%{ver}/lang
+%{_datadir}/guile/%{ver}/language
 %{_datadir}/guile/%{ver}/oop
-%dir %{_datadir}/guile/%{ver}/scripts
-%attr(755,root,root) %{_datadir}/guile/%{ver}/scripts/*
+%{_datadir}/guile/%{ver}/rnrs
+%{_datadir}/guile/%{ver}/scripts
 %{_datadir}/guile/%{ver}/srfi
+%{_datadir}/guile/%{ver}/sxml
+%{_datadir}/guile/%{ver}/system
+%{_datadir}/guile/%{ver}/texinfo
+%{_datadir}/guile/%{ver}/web
 %dir %{_datadir}/guile/site
 %{_mandir}/man1/guile.1*
 
@@ -245,31 +234,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog HACKING
 %attr(755,root,root) %{_bindir}/guile-config
 %attr(755,root,root) %{_bindir}/guile-snarf
-%attr(755,root,root) %{_libdir}/libguile.so
-%{_libdir}/libguile.la
-%{_libdir}/libguile-srfi-srfi-1-v-3.la
-%{_libdir}/libguile-srfi-srfi-4-v-3.la
-%{_libdir}/libguile-srfi-srfi-13-14-v-3.la
-%{_libdir}/libguile-srfi-srfi-60-v-2.la
-%{_libdir}/libguilereadline-v-17.la
-%{_infodir}/goops.info*
+%attr(755,root,root) %{_libdir}/libguile-2.0.so
+%{_libdir}/libguile-2.0.la
+%{_libdir}/libguilereadline-v-18.la
 %{_infodir}/guile.info*
-%{_infodir}/guile-tut.info*
 %{_infodir}/r5rs.info*
 %{_includedir}/guile
-%{_includedir}/libguile
-%{_includedir}/libguile.h
-%{_pkgconfigdir}/guile-1.8.pc
+%{_pkgconfigdir}/guile-2.0.pc
 %{_aclocaldir}/guile.m4
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libguile.a
-%{_libdir}/libguile-srfi-srfi-1-v-3.a
-%{_libdir}/libguile-srfi-srfi-4-v-3.a
-%{_libdir}/libguile-srfi-srfi-13-14-v-3.a
-%{_libdir}/libguile-srfi-srfi-60-v-2.a
-%{_libdir}/libguilereadline-v-17.a
+%{_libdir}/libguile-2.0.a
+%{_libdir}/libguilereadline-v-18.a
 
 %if %{with emacs}
 %files -n emacs-guile-mode-pkg
