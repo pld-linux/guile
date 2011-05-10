@@ -12,13 +12,13 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	2.0.0
+Version:	2.0.1
 Release:	1
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
 Source0:	http://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.gz
-# Source0-md5:	4f91ca29077aca32e1e28f70220dfd9b
+# Source0-md5:	b68f66fbdcbf65036ce4af5f915000f5
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
 Patch2:		%{name}-as-needed.patch
