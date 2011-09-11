@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	tests	# don't perform ./check-guile
-%bcond_without	emacs	# don't build emacs subpackage
+%bcond_with	emacs	# don't build emacs subpackage
 #
 %define		ver	2.0
 Summary:	GNU Extension language
@@ -13,7 +13,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	2.0.2
-Release:	1
+Release:	2
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
