@@ -26,7 +26,7 @@ URL:		http://www.gnu.org/software/guile/guile.html
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.10
 %{?with_emacs:BuildRequires:	emacs}
-BuildRequires:	gc-devel
+BuildRequires:	gc-devel >= 7.0
 BuildRequires:	gettext-devel
 BuildRequires:	gmp-devel >= 4.1
 BuildRequires:	libffi-devel
