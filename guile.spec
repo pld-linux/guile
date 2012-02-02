@@ -12,19 +12,19 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	2.0.3
+Version:	2.0.5
 Release:	1
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
-Source0:	http://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.gz
-# Source0-md5:	3b8b4e1083037f29d2c4704a6d55f2a8
+Source0:	http://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.xz
+# Source0-md5:	81110e16dcdb24c825fecc41b214edb9
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
 Patch2:		%{name}-as-needed.patch
 URL:		http://www.gnu.org/software/guile/guile.html
 BuildRequires:	autoconf >= 2.61
-BuildRequires:	automake >= 1:1.10
+BuildRequires:	automake >= 1:1.11
 %{?with_emacs:BuildRequires:	emacs}
 BuildRequires:	gc-devel >= 7.0
 BuildRequires:	gettext-devel
@@ -36,7 +36,9 @@ BuildRequires:	libunistring-devel
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	readline-devel >= 4.2
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
+BuildRequires:	xz
 Requires:	umb-scheme
 Obsoletes:	libguile9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
