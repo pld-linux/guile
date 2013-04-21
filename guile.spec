@@ -12,23 +12,23 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	2.0.7
+Version:	2.0.9
 Release:	1
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
 Source0:	http://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.xz
-# Source0-md5:	30ff9e94663a2e2098b52f8ce9d050b9
+# Source0-md5:	a69b575d4a633bdd9118f3a4a1e97766
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
 Patch2:		%{name}-as-needed.patch
 URL:		http://www.gnu.org/software/guile/guile.html
 BuildRequires:	autoconf >= 2.61
-BuildRequires:	automake >= 1:1.11
+BuildRequires:	automake >= 1:1.12
 %{?with_emacs:BuildRequires:	emacs}
 BuildRequires:	gc-devel >= 7.0
 BuildRequires:	gettext-devel
-BuildRequires:	gmp-devel >= 4.1
+BuildRequires:	gmp-devel >= 4.2
 BuildRequires:	libffi-devel
 BuildRequires:	libltdl-devel
 BuildRequires:	libtool >= 1:1.4.2-9
@@ -39,6 +39,7 @@ BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
 BuildRequires:	xz
+Requires:	gmp >= 4.2
 Requires:	umb-scheme
 Obsoletes:	libguile9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -96,7 +97,7 @@ Summary(uk.UTF-8):	Файли для розробки програм з Guile
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	gc-devel
-Requires:	gmp-devel >= 4.1
+Requires:	gmp-devel >= 4.2
 Requires:	libffi-devel
 Requires:	libltdl-devel
 Requires:	m4
