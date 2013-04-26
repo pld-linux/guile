@@ -172,6 +172,9 @@ Tryb edycji guile dla emacsa.
 # popen test currently fails
 %{__rm} test-suite/tests/popen.test
 
+# possibly uses network
+%{__sed} -i -e '/tests\/00-socket\.test/d' test-suite/Makefile.am
+
 %build
 %{__gettextize}
 %{__libtoolize}
