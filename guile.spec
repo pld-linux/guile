@@ -170,11 +170,9 @@ Tryb edycji guile dla emacsa.
 %patch1 -p1
 
 # popen test currently fails
-%{__sed} -i -e '/tests\/popen\.test/d' test-suite/Makefile.am
-#%{__rm} test-suite/tests/popen.test
-
-# needs working resolver
-%{__sed} -i -e '/tests\/net-db\.test/d' test-suite/Makefile.am
+%{__rm} test-suite/tests/popen.test
+# net-db test needs working resolver
+%{__rm} test-suite/tests/net-db.test
 
 %build
 %{__gettextize}
