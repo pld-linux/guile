@@ -195,6 +195,9 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site,%{_libdir}/guile}
 	DESTDIR=$RPM_BUILD_ROOT \
 	aclocaldir=%{_aclocaldir}
 
+# not supported yet by gdb; placed here causes ldconfig noise
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-2.0.so*-gdb.scm
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
