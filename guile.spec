@@ -189,7 +189,7 @@ Tryb edycji guile dla emacsa.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site,%{_libdir}/guile}
+install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.0,%{_libdir}/guile}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -238,6 +238,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile/%{ver}/texinfo
 %{_datadir}/guile/%{ver}/web
 %dir %{_datadir}/guile/site
+%dir %{_datadir}/guile/site/2.0
 %{_mandir}/man1/guile.1*
 
 %files devel
