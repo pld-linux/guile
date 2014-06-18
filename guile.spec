@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	tests	# don't perform ./check-guile
 %bcond_with	emacs	# don't build emacs subpackage
-#
+
 %define		ver	2.0
 Summary:	GNU Extension language
 Summary(es.UTF-8):	Lenguaje de extensión de la GNU
@@ -13,7 +13,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	2.0.11
-Release:	1
+Release:	2
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
@@ -39,6 +39,7 @@ BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
 BuildRequires:	xz
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	gmp >= 4.2
 Requires:	umb-scheme
 Obsoletes:	libguile9
@@ -85,6 +86,14 @@ Guile - это переносимая, встраиваемая реализац
 Guile - це переносима та вбудовувана реалізація мови Scheme написана
 на C. Guile забезпечує машинонезалежне середовище виконання, яке може
 бути скомпоноване з програмою у вигляді бібліотеки.
+
+%package libs
+Summary:	Guile's libraries, etc
+Group:		Libraries
+Conflicts:	%{name} < 5:2.0.11-2
+
+%description libs
+Guile's libraries.
 
 %package devel
 Summary:	Guile's header files, etc
@@ -198,11 +207,17 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.0,%{_libdir}/guile}
 # not supported yet by gdb; placed here causes ldconfig noise
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-2.0.so*-gdb.scm
 
+# use rm -f, as it depends on texlive version whether this is created or not
+%{__rm} -f $RPM_BUILD_ROOT%{_infodir}/dir
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
+%post   libs -p /sbin/ldconfig
+%postun libs -p /sbin/ldconfig
 
 %post	devel -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
@@ -216,8 +231,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/guild
 %attr(755,root,root) %{_bindir}/guile
 %attr(755,root,root) %{_bindir}/guile-tools
-%attr(755,root,root) %{_libdir}/libguile-2.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-2.0.so.22
 # shared library dlopened by interpreter (.so or .la needed)
 %attr(755,root,root) %{_libdir}/libguilereadline-v-18.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libguilereadline-v-18.so.18
@@ -240,6 +253,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/guile/site
 %dir %{_datadir}/guile/site/2.0
 %{_mandir}/man1/guile.1*
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libguile-2.0.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-2.0.so.22
 
 %files devel
 %defattr(644,root,root,755)
