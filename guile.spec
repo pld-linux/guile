@@ -13,7 +13,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	2.0.11
-Release:	6
+Release:	7
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
@@ -200,7 +200,7 @@ Tryb edycji guile dla emacsa.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.0,%{_libdir}/guile}
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	aclocaldir=%{_aclocaldir}
 
