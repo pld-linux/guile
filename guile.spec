@@ -27,7 +27,7 @@ BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.12
 %{?with_emacs:BuildRequires:	emacs}
 BuildRequires:	gc-devel >= 7.0
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gmp-devel >= 4.2
 BuildRequires:	libffi-devel
 BuildRequires:	libltdl-devel
