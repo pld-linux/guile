@@ -13,7 +13,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	2.0.11
-Release:	8
+Release:	9
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
@@ -198,7 +198,7 @@ Tryb edycji guile dla emacsa.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.0,%{_libdir}/guile}
+install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.0,%{_libdir}/guile/%{ver}/site-ccache}
 
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -235,7 +235,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libguilereadline-v-18.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libguilereadline-v-18.so.18
 %attr(755,root,root) %{_libdir}/libguilereadline-v-18.so
-%{_libdir}/guile
+%dir %{_libdir}/guile
+%dir %{_libdir}/guile/%{ver}
+%{_libdir}/guile/%{ver}/ccache
+%{_libdir}/guile/%{ver}/site-ccache
 %dir %{_datadir}/guile
 %dir %{_datadir}/guile/%{ver}
 %{_datadir}/guile/%{ver}/guile-procedures.txt
