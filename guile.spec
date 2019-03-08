@@ -3,7 +3,7 @@
 %bcond_without	tests	# don't perform ./check-guile
 %bcond_with	emacs	# don't build emacs subpackage
 
-%define		ver	2.0
+%define		ver	2.2
 Summary:	GNU Extension language
 Summary(es.UTF-8):	Lenguaje de extensión de la GNU
 Summary(ja.UTF-8):	アプリケーションの拡張のための GNU による Scheme の実装
@@ -12,13 +12,13 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	2.0.14
+Version:	2.2.4
 Release:	1
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
 Source0:	http://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.xz
-# Source0-md5:	c64977c775effd19393364b3018fd8cd
+# Source0-md5:	d2ee223fdb7570b68469e339a7074d1d
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
 Patch2:		%{name}-as-needed.patch
@@ -48,6 +48,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %ifarch sparc sparc64
 %undefine	with_tests
 %endif
+
+%define		_noautostrip	.*\.go
 
 %description
 Guile, a portable, embeddable Scheme implementation written in C.
@@ -90,7 +92,7 @@ Guile - це переносима та вбудовувана реалізаці
 %package libs
 Summary:	Guile's libraries, etc
 Group:		Libraries
-Conflicts:	%{name} < 5:2.0.11-2
+Conflicts:	%{name} < 5:2.2.11-2
 
 %description libs
 Guile's libraries.
@@ -198,14 +200,14 @@ Tryb edycji guile dla emacsa.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.0,%{_libdir}/guile/%{ver}/site-ccache}
+install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.2,%{_libdir}/guile/%{ver}/site-ccache}
 
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	aclocaldir=%{_aclocaldir}
 
 # not supported yet by gdb; placed here causes ldconfig noise
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-2.0.so*-gdb.scm
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-2.2.so*-gdb.scm
 
 # use rm -f, as it depends on texlive version whether this is created or not
 %{__rm} -f $RPM_BUILD_ROOT%{_infodir}/dir
@@ -231,10 +233,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/guild
 %attr(755,root,root) %{_bindir}/guile
 %attr(755,root,root) %{_bindir}/guile-tools
-# shared library dlopened by interpreter (.so or .la needed)
-%attr(755,root,root) %{_libdir}/libguilereadline-v-18.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguilereadline-v-18.so.18
-%attr(755,root,root) %{_libdir}/libguilereadline-v-18.so
 %dir %{_libdir}/guile
 %dir %{_libdir}/guile/%{ver}
 %{_libdir}/guile/%{ver}/ccache
@@ -254,32 +252,30 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile/%{ver}/texinfo
 %{_datadir}/guile/%{ver}/web
 %dir %{_datadir}/guile/site
-%dir %{_datadir}/guile/site/2.0
+%dir %{_datadir}/guile/site/2.2
 %{_mandir}/man1/guile.1*
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libguile-2.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-2.0.so.22
+%attr(755,root,root) %{_libdir}/libguile-2.2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-2.2.so.22
 
 %files devel
 %defattr(644,root,root,755)
 %doc ChangeLog HACKING
 %attr(755,root,root) %{_bindir}/guile-config
 %attr(755,root,root) %{_bindir}/guile-snarf
-%attr(755,root,root) %{_libdir}/libguile-2.0.so
-%{_libdir}/libguile-2.0.la
-%{_libdir}/libguilereadline-v-18.la
+%attr(755,root,root) %{_libdir}/libguile-2.2.so
+%{_libdir}/libguile-2.2.la
 %{_infodir}/guile.info*
 %{_infodir}/r5rs.info*
 %{_includedir}/guile
-%{_pkgconfigdir}/guile-2.0.pc
+%{_pkgconfigdir}/guile-2.2.pc
 %{_aclocaldir}/guile.m4
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libguile-2.0.a
-%{_libdir}/libguilereadline-v-18.a
+%{_libdir}/libguile-2.2.a
 
 %if %{with emacs}
 %files -n emacs-guile-mode-pkg
