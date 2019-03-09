@@ -13,7 +13,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	2.2.4
-Release:	1
+Release:	2
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
@@ -236,6 +236,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/guile
 %dir %{_libdir}/guile/%{ver}
 %{_libdir}/guile/%{ver}/ccache
+%dir %{_libdir}/guile/%{ver}/extensions
+%attr(755,root,root) %{_libdir}/guile/%{ver}/extensions/guile-readline.la
+%attr(755,root,root) %{_libdir}/guile/%{ver}/extensions/guile-readline.so*
 %{_libdir}/guile/%{ver}/site-ccache
 %dir %{_datadir}/guile
 %dir %{_datadir}/guile/%{ver}
@@ -258,7 +261,7 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libguile-2.2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-2.2.so.22
+%attr(755,root,root) %ghost %{_libdir}/libguile-2.2.so.1
 
 %files devel
 %defattr(644,root,root,755)
