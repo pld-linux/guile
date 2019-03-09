@@ -1,9 +1,13 @@
 #
 # Conditional build:
-%bcond_without	tests	# don't perform ./check-guile
-%bcond_with	emacs	# don't build emacs subpackage
+%bcond_without	tests	# running ./check-guile
+%bcond_with	emacs	# emacs mode subpackage
 
-%define		ver	2.2
+%ifarch sparc sparc64
+%undefine	with_tests
+%endif
+
+%define		mver	2.2
 Summary:	GNU Extension language
 Summary(es.UTF-8):	Lenguaje de extensión de la GNU
 Summary(ja.UTF-8):	アプリケーションの拡張のための GNU による Scheme の実装
@@ -45,11 +49,7 @@ Requires:	umb-scheme
 Obsoletes:	libguile9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%ifarch sparc sparc64
-%undefine	with_tests
-%endif
-
-%define		_noautostrip	.*\.go
+%define		_noautostrip	.*%{_libdir}/guile/.*\.go
 
 %description
 Guile, a portable, embeddable Scheme implementation written in C.
@@ -90,12 +90,15 @@ Guile - це переносима та вбудовувана реалізаці
 бути скомпоноване з програмою у вигляді бібліотеки.
 
 %package libs
-Summary:	Guile's libraries, etc
+Summary:	Guile shared libraries
+Summary(pl.UTF-8):	Biblioteki współdzielone Guile
 Group:		Libraries
-Conflicts:	%{name} < 5:2.0.11-2
 
 %description libs
-Guile's libraries.
+Guile shared libraries.
+
+%description libs -l pl.UTF-8
+Biblioteki współdzielone Guile.
 
 %package devel
 Summary:	Guile's header files, etc
@@ -200,14 +203,17 @@ Tryb edycji guile dla emacsa.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/2.2,%{_libdir}/guile/%{ver}/site-ccache}
+install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/%{mver},%{_libdir}/guile/%{mver}/site-ccache}
 
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	aclocaldir=%{_aclocaldir}
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/guile/%{mver}/extensions/*.{la,a}
+
 # not supported yet by gdb; placed here causes ldconfig noise
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-2.2.so*-gdb.scm
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libguile-%{mver}.so*-gdb.scm
 
 # use rm -f, as it depends on texlive version whether this is created or not
 %{__rm} -f $RPM_BUILD_ROOT%{_infodir}/dir
@@ -234,51 +240,49 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/guile
 %attr(755,root,root) %{_bindir}/guile-tools
 %dir %{_libdir}/guile
-%dir %{_libdir}/guile/%{ver}
-%{_libdir}/guile/%{ver}/ccache
-%dir %{_libdir}/guile/%{ver}/extensions
-%attr(755,root,root) %{_libdir}/guile/%{ver}/extensions/guile-readline.la
-%attr(755,root,root) %{_libdir}/guile/%{ver}/extensions/guile-readline.so*
-%{_libdir}/guile/%{ver}/site-ccache
+%dir %{_libdir}/guile/%{mver}
+%{_libdir}/guile/%{mver}/ccache
+%dir %{_libdir}/guile/%{mver}/extensions
+%attr(755,root,root) %{_libdir}/guile/%{mver}/extensions/guile-readline.so*
+%{_libdir}/guile/%{mver}/site-ccache
 %dir %{_datadir}/guile
-%dir %{_datadir}/guile/%{ver}
-%{_datadir}/guile/%{ver}/guile-procedures.txt
-%{_datadir}/guile/%{ver}/*.scm
-%{_datadir}/guile/%{ver}/ice-9
-%{_datadir}/guile/%{ver}/language
-%{_datadir}/guile/%{ver}/oop
-%{_datadir}/guile/%{ver}/rnrs
-%{_datadir}/guile/%{ver}/scripts
-%{_datadir}/guile/%{ver}/srfi
-%{_datadir}/guile/%{ver}/sxml
-%{_datadir}/guile/%{ver}/system
-%{_datadir}/guile/%{ver}/texinfo
-%{_datadir}/guile/%{ver}/web
+%dir %{_datadir}/guile/%{mver}
+%{_datadir}/guile/%{mver}/guile-procedures.txt
+%{_datadir}/guile/%{mver}/*.scm
+%{_datadir}/guile/%{mver}/ice-9
+%{_datadir}/guile/%{mver}/language
+%{_datadir}/guile/%{mver}/oop
+%{_datadir}/guile/%{mver}/rnrs
+%{_datadir}/guile/%{mver}/scripts
+%{_datadir}/guile/%{mver}/srfi
+%{_datadir}/guile/%{mver}/sxml
+%{_datadir}/guile/%{mver}/system
+%{_datadir}/guile/%{mver}/texinfo
+%{_datadir}/guile/%{mver}/web
 %dir %{_datadir}/guile/site
-%dir %{_datadir}/guile/site/2.2
+%dir %{_datadir}/guile/site/%{mver}
 %{_mandir}/man1/guile.1*
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libguile-2.2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libguile-2.2.so.1
+%attr(755,root,root) %{_libdir}/libguile-%{mver}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libguile-%{mver}.so.1
 
 %files devel
 %defattr(644,root,root,755)
 %doc ChangeLog HACKING
 %attr(755,root,root) %{_bindir}/guile-config
 %attr(755,root,root) %{_bindir}/guile-snarf
-%attr(755,root,root) %{_libdir}/libguile-2.2.so
-%{_libdir}/libguile-2.2.la
+%attr(755,root,root) %{_libdir}/libguile-%{mver}.so
 %{_infodir}/guile.info*
 %{_infodir}/r5rs.info*
 %{_includedir}/guile
-%{_pkgconfigdir}/guile-2.2.pc
+%{_pkgconfigdir}/guile-%{mver}.pc
 %{_aclocaldir}/guile.m4
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libguile-2.2.a
+%{_libdir}/libguile-%{mver}.a
 
 %if %{with emacs}
 %files -n emacs-guile-mode-pkg
