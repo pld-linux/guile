@@ -13,7 +13,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	2.2.4
-Release:	2
+Release:	3
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
@@ -92,7 +92,7 @@ Guile - це переносима та вбудовувана реалізаці
 %package libs
 Summary:	Guile's libraries, etc
 Group:		Libraries
-Conflicts:	%{name} < 5:2.2.11-2
+Conflicts:	%{name} < 5:2.0.11-2
 
 %description libs
 Guile's libraries.
