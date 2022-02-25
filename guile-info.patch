@@ -1,16 +1,6 @@
---- guile-1.6.1/doc/ref/guile.texi.orig	Sun May  5 13:31:59 2002
-+++ guile-1.6.1/doc/ref/guile.texi	Tue May 21 22:21:17 2002
-@@ -26,7 +26,7 @@
- 
- @dircategory The Algorithmic Language Scheme
- @direntry
--* Guile Reference: (guile).     The Guile reference manual.
-+* Guile Reference: (guile).		The Guile reference manual
- @end direntry
- 
- @setchapternewpage off
---- guile-1.6.1/doc/r5rs/r5rs.texi.orig	Sat Dec  7 23:41:29 2002
-+++ guile-1.6.1/doc/r5rs/r5rs.texi	Tue Dec 24 23:34:38 2002
+diff -urNp -x '*.orig' guile-2.2.7.org/doc/r5rs/r5rs.texi guile-2.2.7/doc/r5rs/r5rs.texi
+--- guile-2.2.7.org/doc/r5rs/r5rs.texi	2013-05-21 22:40:16.000000000 +0200
++++ guile-2.2.7/doc/r5rs/r5rs.texi	2022-02-26 00:01:27.496422199 +0100
 @@ -66,7 +66,7 @@
  @ifinfo
  @dircategory The Algorithmic Language Scheme
@@ -20,3 +10,15 @@
  @end direntry
  @end ifinfo
  
+diff -urNp -x '*.orig' guile-2.2.7.org/doc/ref/guile.texi guile-2.2.7/doc/ref/guile.texi
+--- guile-2.2.7.org/doc/ref/guile.texi	2019-06-04 21:24:01.000000000 +0200
++++ guile-2.2.7/doc/ref/guile.texi	2022-02-26 00:01:27.495422197 +0100
+@@ -127,7 +127,7 @@ x
+ 
+ @dircategory The Algorithmic Language Scheme
+ @direntry
+-* Guile Reference: (guile).     The Guile reference manual.
++* Guile Reference: (guile).		The Guile reference manual
+ @end direntry
+ 
+ @setchapternewpage odd
