@@ -7,7 +7,7 @@
 %undefine	with_tests
 %endif
 
-%define		mver	2.2
+%define		mver	3.0
 Summary:	GNU Extension language
 Summary(es.UTF-8):	Lenguaje de extensión de la GNU
 Summary(ja.UTF-8):	アプリケーションの拡張のための GNU による Scheme の実装
@@ -16,16 +16,17 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	2.2.7
-Release:	5
+Version:	3.0.8
+Release:	1
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
 Source0:	https://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.xz
-# Source0-md5:	7a7e8def41678c567148c26a8a0a0873
+# Source0-md5:	260ebdd35110a1ce79852ebf0270d309
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
-Patch2:		%{name}-as-needed.patch
+Patch2:		0006-numbers.test-disable-unresolved-mixed-type-division-.patch
+Patch3:		0007-Fix-non-revealed-port-is-closed-ports.test.patch
 URL:		http://www.gnu.org/software/guile/guile.html
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.12
@@ -182,6 +183,10 @@ Tryb edycji guile dla emacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%ifarch %{ix86}
+%patch2 -p1
+%endif
+%patch3 -p1
 
 # popen test currently fails
 %{__rm} test-suite/tests/popen.test
@@ -205,7 +210,7 @@ Tryb edycji guile dla emacsa.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_datadir}/guile/site/%{mver},%{_libdir}/guile/%{mver}/site-ccache}
 
-%{__make} -j1 install \
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	aclocaldir=%{_aclocaldir}
 
@@ -253,6 +258,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile/%{mver}/language
 %{_datadir}/guile/%{mver}/oop
 %{_datadir}/guile/%{mver}/rnrs
+%{_datadir}/guile/%{mver}/scheme
 %{_datadir}/guile/%{mver}/scripts
 %{_datadir}/guile/%{mver}/srfi
 %{_datadir}/guile/%{mver}/sxml
