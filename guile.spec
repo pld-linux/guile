@@ -200,6 +200,9 @@ Tryb edycji guile dla emacsa.
 %{__autoconf}
 %{__automake}
 %configure \
+%ifarch x32
+	--enable-jit=no \
+%endif
 	--disable-silent-rules
 
 %{__make}
