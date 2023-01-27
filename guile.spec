@@ -16,17 +16,16 @@ Summary(pt_BR.UTF-8):	Linguagem de extensão da GNU
 Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
-Version:	3.0.8
+Version:	3.0.9
 Release:	1
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
 Source0:	https://ftp.gnu.org/gnu/guile/%{name}-%{version}.tar.xz
-# Source0-md5:	260ebdd35110a1ce79852ebf0270d309
+# Source0-md5:	258983e0156c2bc66539dcbcb96f2bd2
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-fix_awk_patch.patch
 Patch2:		0006-numbers.test-disable-unresolved-mixed-type-division-.patch
-Patch3:		0007-Fix-non-revealed-port-is-closed-ports.test.patch
 URL:		http://www.gnu.org/software/guile/guile.html
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	automake >= 1:1.12
@@ -47,7 +46,7 @@ BuildRequires:	xz
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	gmp >= 4.2
 Requires:	umb-scheme
-Obsoletes:	libguile9
+Obsoletes:	libguile9 < 5:2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautostrip	.*%{_libdir}/guile/.*\.go
@@ -116,7 +115,7 @@ Requires:	gmp-devel >= 4.2
 Requires:	libffi-devel
 Requires:	libltdl-devel
 Requires:	m4
-Obsoletes:	libguile9-devel
+Obsoletes:	libguile9-devel < 5:2
 
 %description devel
 What's needed to develop apps linked w/ guile
@@ -186,7 +185,6 @@ Tryb edycji guile dla emacsa.
 %ifarch %{ix86}
 %patch2 -p1
 %endif
-%patch3 -p1
 
 # popen test currently fails
 %{__rm} test-suite/tests/popen.test
