@@ -182,7 +182,7 @@ Tryb edycji guile dla emacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%ifarch %{ix86}
+%ifarch %{ix86} x32
 %patch2 -p1
 %endif
 
