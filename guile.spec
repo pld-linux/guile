@@ -1,3 +1,4 @@
+# TODO: many bytevectors.test and numbers.test failures on x32
 #
 # Conditional build:
 %bcond_without	tests	# running ./check-guile
@@ -182,7 +183,7 @@ Tryb edycji guile dla emacsa.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%ifarch %{ix86} x32
+%ifarch %{ix86}
 %patch2 -p1
 %endif
 
