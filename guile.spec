@@ -1,4 +1,5 @@
-# TODO: many bytevectors.test and numbers.test failures on x32
+# TODO: many bytevectors.test and numbers.test failures on x32 when using system gmp
+# (temporarily switched to internal mini-gmp)
 #
 # Conditional build:
 %bcond_without	tests	# running ./check-guile
@@ -18,7 +19,7 @@ Summary(ru.UTF-8):	Язык расширений GNU
 Summary(uk.UTF-8):	Мова розширень GNU
 Name:		guile
 Version:	3.0.9
-Release:	2
+Release:	3
 Epoch:		5
 License:	LGPL v3+
 Group:		Development/Languages
@@ -200,7 +201,8 @@ Tryb edycji guile dla emacsa.
 %{__automake}
 %configure \
 %ifarch x32
-	--enable-jit=no \
+	--disable-jit \
+	--enable-mini-gmp \
 %endif
 	--disable-silent-rules
 
