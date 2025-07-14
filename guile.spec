@@ -182,10 +182,10 @@ Tryb edycji guile dla emacsa.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 %ifarch %{ix86}
-%patch2 -p1
+%patch -P2 -p1
 %endif
 
 # popen test currently fails
